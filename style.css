@@ -43,8 +43,8 @@ body {
 
 .pop {
   border: 1px solid #ddd;
-  width: 10rem;
-  height: 10rem;
+  width: 5rem;
+  height: 5rem;
   display: inline-block;
   text-align: center;
   vertical-align: middle;
@@ -56,6 +56,14 @@ body {
   display: block;
 }
 
-.game {
-  border: 1px solid red;
+.active {
+  border: 1px solid blue;
+  cursor: pointer;
+  background-color: aliceblue;
+  color: black;
+  box-shadow: 0.2rem 0.2rem #555;
+}
+.stats {
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
 }

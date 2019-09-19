@@ -25,17 +25,25 @@ function getData() {
     });
 }
 
+function updateScore() {
+  playArea.scorer.innerHTML =
+    "Score: " + player.score + " Lives: " + player.items;
+}
+
 function buildBoard() {
+  playArea.scorer = document.createElement("span");
+  playArea.scorer.innerHTML = "Press Button To Start";
+  playArea.stats.appendChild(playArea.scorer);
   let rows = 4;
   let cols = 4;
   let cnt = 0;
   playArea.game.getElementsByClassName.width = cols * 100 + cols * 2;
   playArea.game.getElementsByClassName.margin = "auto";
-  for (let y = 0; y < cols; y++) {
+  for (let y = 0; y < rows; y++) {
     let divMain = document.createElement("div");
     divMain.setAttribute("class", "row");
     divMain.style.width = cols * 100 + cols * 2;
-    for (let x = 0; x < rows; x++) {
+    for (let x = 0; x < cols; x++) {
       let div = document.createElement("div");
       div.setAttribute("class", "pop");
       cnt++;
@@ -58,4 +66,67 @@ function startGame() {
   player.items = 3;
   playArea.main.classList.remove("visable");
   playArea.game.classList.add("visable");
+  player.gameOver = false;
+  startPop();
+  updateScore();
+}
+
+function randomUp() {
+  const pops = document.querySelectorAll(".pop");
+  const idx = Math.floor(Math.random() * pops.length);
+  if (pops[idx].cnt == playArea.last) {
+    return randomUp();
+  }
+  playArea.last = pops[idx].cnt;
+  return pops[idx];
+}
+
+function startPop() {
+  let newPop = randomUp();
+  console.log(newPop);
+  newPop.classList.add("active");
+  newPop.addEventListener("click", hitPop);
+  const time = Math.round(Math.random() * 1500 + 750);
+  const val = Math.floor(Math.random() * gameObj.length);
+
+  newPop.old = newPop.innerText;
+  newPop.v = gameObj[val].value;
+  newPop.innerHTML = gameObj[val].icon + "<br>" + gameObj[val].value;
+  playArea.inPlay = setTimeout(function() {
+    newPop.classList.remove("active");
+    newPop.removeEventListener("click", hitPop);
+    newPop.innerText = newPop.old;
+    if (newPop.v < 0) {
+      player.items--;
+      updateScore();
+    }
+    if (player.items <= 0) {
+      gameOver();
+    }
+
+    if (!player.gameOver) {
+      startPop();
+    }
+  }, time);
+}
+
+function gameOver() {
+  player.gameOver = true;
+  playArea.main.classList.add("visable");
+  playArea.game.classList.remove("visable");
+  document.querySelector(".newGame").innerText = "Try Again";
+}
+
+function hitPop(e) {
+  console.log(e.target);
+  let newPop = e.target;
+  player.score = player.score + newPop.v;
+  updateScore();
+  newPop.classList.remove("active");
+  newPop.removeEventListener("click", hitPop);
+  newPop.innerText = newPop.old;
+  clearTimeout(playArea.inPlay);
+  if (!playArea.gameOver) {
+    startPop();
+  }
 }
