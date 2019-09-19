@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-image: linear-gradient(to bottom right, #98e0f5, #34c2bd);
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.container {
+  width: 80%;
+  padding: 5rem;
+  margin: 5rem auto;
+  text-align: center;
+  background-color: white;
+}
+
+.btn {
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.5rem 0.8rem;
+  border-radius: 2rem;
+  text-align: center;
+  background-color: blue;
+  color: white;
+}
+
+.page {
+  display: none;
+}
+
+.visable {
+  display: block;
+}
+
+.pop {
+  border: 1px solid #ddd;
+  width: 10rem;
+  height: 10rem;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  color: #ddd;
+  font-size: 2rem;
+}
+
+.row {
+  display: block;
+}
+
+.game {
+  border: 1px solid red;
+}
