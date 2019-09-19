@@ -34,7 +34,16 @@ function buildBoard() {
   for (let y = 0; y < cols; y++) {
     let divMain = document.createElement("div");
     divMain.setAttribute("class", "row");
-    for (let x = 0; x < rows; x++) {}
+    divMain.style.width = cols * 100 + cols * 2;
+    for (let x = 0; x < rows; x++) {
+      let div = document.createElement("div");
+      div.setAttribute("class", "pop");
+      cnt++;
+      div.innerText = cnt;
+      div.cnt = cnt;
+      divMain.appendChild(div);
+    }
+    playArea.game.appendChild(divMain);
   }
 }
 
